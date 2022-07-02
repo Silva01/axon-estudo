@@ -1,6 +1,7 @@
 package br.net.silca.daniel.demo.gui
 
 import br.net.silca.daniel.demo.api.TesteCommand
+import br.net.silca.daniel.demo.command.ResponseDados
 import br.net.silca.daniel.demo.command.Teste
 import br.net.silca.daniel.demo.command.TesteId
 import org.axonframework.commandhandling.gateway.CommandGateway
@@ -24,7 +25,7 @@ class TesteController {
     private val remaining = AtomicInteger()
 
     @GetMapping
-    public fun testar(): CompletableFuture<TesteId>? = commandGateway.send<TesteId>(TesteCommand(TesteId(UUID.randomUUID(), "Teste"), "Teste"))
+    public fun testar(): CompletableFuture<ResponseDados>? = commandGateway.send<ResponseDados>(TesteCommand("Testando API"))
         .whenComplete(BiConsumer { result: Any?, throwable: Throwable? ->
             if (throwable == null) {
                 success.incrementAndGet()
